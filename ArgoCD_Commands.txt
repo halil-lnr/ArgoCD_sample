@@ -1,0 +1,18 @@
+# To Install ArgoCD in k8s
+-----------------------------
+1) kubectl create namespace argocd
+2) kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+
+# Login with admin user and below token (as in documentation):
+------------------------
+3) kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+   OR
+   kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
+   Then decode it before using it. In Linux:
+   echo EncodedText | base64 --decode
+   ArgoCDPass
+
+# To Access ArgoCD UI
+---------------------
+4) kubectl port-forward svc/argocd-server -n argocd 8888:443
+
